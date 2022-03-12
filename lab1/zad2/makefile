@@ -8,7 +8,7 @@ OPT = 0
 
 static:
 	make -C ../zad1 static
-	$(CC) $(FLAGS) -O$(OPT) $(MAIN_FILE) -o main -I$(LIB_PATH) $(LIB_PATH)/lib_$(LIB_NAME).a
+	$(CC) $(FLAGS) -O$(OPT) $(MAIN_FILE) -o main -I$(LIB_PATH) $(LIB_PATH)/lib$(LIB_NAME).a
 
 shared:
 	make -C ../zad1 shared
