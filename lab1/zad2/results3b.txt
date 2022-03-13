@@ -1,0 +1,96 @@
+nazewnictwo: 
+F - file, S - small, L - large, H - huge (np. wcFL - uruchom wc dla pliku Large)
+Xx - gdzie X to liczba - polecenie wykonane X razy (np. wc8xFL - wc wykonane dla 8 plików typu Large, 3xloadRemoveS - 3 razy stworzono mały blok pamięci i natychmiast go usunięto, 12xload_12xremoveH - najpierw stworzono 12 "ogromnych" bloków pamięci a następnie je usunięto)
+
+biblioteka statyczna, optymalizacja -O3
+                          Name		       Real [s]	       User [s]	     System [s]	
+                 createTable64:		       0.000000	       0.000000	       0.000000	
+                 wc3smallFiles:		       0.010000	       0.000000	       0.000000	
+                    load3files:		       0.000000	       0.000000	       0.000000	
+                          wcFS:		       0.020000	       0.000000	       0.000000	
+                          wcFL:		       0.010000	       0.000000	       0.000000	
+                          wcFL:		       0.020000	       0.000000	       0.000000	
+                        wc8xFS:		       0.020000	       0.000000	       0.000000	
+                      load8xFS:		       0.000000	       0.000000	       0.000000	
+                        wc8xFL:		       0.020000	       0.000000	       0.000000	
+                      load8xFL:		       0.000000	       0.000000	       0.000000	
+                        wc8xFH:		       0.050000	       0.000000	       0.000000	
+                      load8xFH:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                 3xloadRemoveS:		       0.000000	       0.000000	       0.000000	
+              3xload_3xremoveS:		       0.000000	       0.000000	       0.000000	
+            12xload_12xremoveS:		       0.000000	       0.000000	       0.000000	
+                       wc8xFSH:		       0.060000	       0.000000	       0.000000	
+            12xload_12xremoveH:		       0.000000	       0.000000	       0.000000	
+                       wc32xFS:		       0.030000	       0.000000	       0.000000	
+                   load_emoveH:		       0.000000	       0.000000	       0.000000	
+                     wc10files:		       0.010000	       0.000000	       0.000000	
+                     
+
+biblioteka dzielona, optymalizacja -O3
+                          Name		       Real [s]	       User [s]	     System [s]	
+                 createTable64:		       0.000000	       0.000000	       0.000000	
+                 wc3smallFiles:		       0.010000	       0.000000	       0.000000	
+                    load3files:		       0.000000	       0.000000	       0.000000	
+                          wcFS:		       0.020000	       0.000000	       0.000000	
+                          wcFL:		       0.020000	       0.000000	       0.000000	
+                          wcFL:		       0.010000	       0.000000	       0.000000	
+                        wc8xFS:		       0.020000	       0.000000	       0.000000	
+                      load8xFS:		       0.000000	       0.000000	       0.000000	
+                        wc8xFL:		       0.020000	       0.000000	       0.000000	
+                      load8xFL:		       0.000000	       0.000000	       0.000000	
+                        wc8xFH:		       0.060000	       0.000000	       0.000000	
+                      load8xFH:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                 3xloadRemoveS:		       0.000000	       0.000000	       0.000000	
+              3xload_3xremoveS:		       0.000000	       0.000000	       0.000000	
+            12xload_12xremoveS:		       0.000000	       0.000000	       0.000000	
+                       wc8xFSH:		       0.050000	       0.000000	       0.000000	
+            12xload_12xremoveH:		       0.000000	       0.000000	       0.000000	
+                       wc32xFS:		       0.030000	       0.000000	       0.000000	
+                   load_emoveH:		       0.000000	       0.000000	       0.000000	
+                     wc10files:		       0.020000	       0.000000	       0.000000	
+
+
+biblioteka ładowana dynamicznie przez program, optymalizacja -O3
+                          Name		       Real [s]	       User [s]	     System [s]	
+                 createTable64:		       0.000000	       0.000000	       0.000000	
+                 wc3smallFiles:		       0.020000	       0.000000	       0.000000	
+                    load3files:		       0.000000	       0.000000	       0.000000	
+                          wcFS:		       0.010000	       0.000000	       0.000000	
+                          wcFL:		       0.020000	       0.000000	       0.000000	
+                          wcFL:		       0.020000	       0.000000	       0.000000	
+                        wc8xFS:		       0.010000	       0.000000	       0.000000	
+                      load8xFS:		       0.000000	       0.000000	       0.000000	
+                        wc8xFL:		       0.020000	       0.000000	       0.000000	
+                      load8xFL:		       0.000000	       0.000000	       0.000000	
+                        wc8xFH:		       0.050000	       0.000000	       0.000000	
+                      load8xFH:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                        loadFS:		       0.000000	       0.000000	       0.000000	
+                          rmFS:		       0.000000	       0.000000	       0.000000	
+                 3xloadRemoveS:		       0.000000	       0.000000	       0.000000	
+              3xload_3xremoveS:		       0.000000	       0.000000	       0.000000	
+            12xload_12xremoveS:		       0.000000	       0.000000	       0.000000	
+                       wc8xFSH:		       0.060000	       0.000000	       0.000000	
+            12xload_12xremoveH:		       0.000000	       0.000000	       0.000000	
+                       wc32xFS:		       0.020000	       0.000000	       0.000000	
+                   load_emoveH:		       0.000000	       0.000000	       0.000000	
+                     wc10files:		       0.020000	       0.000000	       0.000000	
+                     
+
+Tak jak i w przypadku zadania nr 2 jedyne niezerowe wyniki to te polegające na przygotowaniu polecenia i uruchomieniu zewnętrznego programu 'wc', więc niewiele można wywnioskować poza tym, że program jest szybki.
+Zmierzone czasy wykonań poleceń są zerowe, więc nie wykonywałem pomiarów dla innych poziomów optymalizacji.

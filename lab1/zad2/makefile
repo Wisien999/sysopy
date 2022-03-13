@@ -3,7 +3,8 @@ FLAGS = -Wall
 LIB_NAME = _wc
 LIB_PATH = ../zad1
 MAIN_FILE = main.c
-REPORT_FILE = raport.txt
+DEFAULT_REPORT_FILE = raport.txt
+OUTPUT_REPORT_FILE = raport2.txt
 OPT = 0
 
 static:
@@ -22,11 +23,10 @@ dynamic:
 simple_test: 
 	valgrind ./main create_table 5 wc_files test/file1 test/file2 load_block wc_files test/file1 load_block wc_files makefile load_block remove_block 1 wc_files 'test/*' load_block
 
-
-test:
-	make static
-	rm -f $(REPORT_FILE)
-	./main $(shell cat args.txt)
+test1:
+	rm -f $(DEFAULT_REPORT_FILE)
+	LD_LIBRARY_PATH=$(LIB_PATH) ./main $(shell cat args.txt)
+	mv $(DEFAULT_REPORT_FILE) $(OUTPUT_REPORT_FILE)
 
 
 clean:

@@ -5,10 +5,10 @@
 #include <time.h>
 #include <sys/times.h>
 
-#ifndef DYN_WC_LIB_NAME
-#include "lib_wc.h"
-#else
+#ifdef DYN_WC_LIB_NAME
 #include "wc_dynamic.h"
+#else
+#include "lib_wc.h"
 #endif
 
 clock_t st_time, en_time;
@@ -27,11 +27,13 @@ void end_timer()
 
 void write_file_header(FILE *f)
 {
-    fprintf(f, "%30s\t\t%15s\t%15s\t%15s\t\n",
+    fprintf(f, "%30s\t\t%15s\t%15s\t%15s\t%15s\t%15s\n",
             "Name",
             "Real [s]",
             "User [s]",
-            "System [s]");
+            "System [s]",
+            "Child User [s]",
+            "Child System [s]");
 }
 
 void save_timer(char *name, FILE *f)
@@ -41,17 +43,45 @@ void save_timer(char *name, FILE *f)
     double real_time = (double)(en_time - st_time) / clk_tics;
     double user_time = (double)(en_cpu.tms_utime - st_cpu.tms_utime) / clk_tics;
     double system_time = (double)(en_cpu.tms_stime - st_cpu.tms_stime) / clk_tics;
-    fprintf(f, "%30s:\t\t%15f\t%15f\t%15f\t\n",
+    double child_user_time = (double)(en_cpu.tms_cutime - st_cpu.tms_cutime) / clk_tics;
+    double child_system_time = (double)(en_cpu.tms_cstime - st_cpu.tms_cstime) / clk_tics;
+    fprintf(f, "%30s:\t\t%15f\t%15f\t%15f\t%15f\t%15f\t\n",
             name,
             real_time,
             user_time,
-            system_time);
+            system_time,
+            child_user_time,
+            child_system_time);
 }
+//void write_file_header(FILE *f)
+//{
+//    fprintf(f, "%30s\t\t%15s\t%15s\t%15s\t\n",
+//            "Name",
+//            "Real [s]",
+//            "User [s]",
+//            "System [s]");
+//}
+//
+//void save_timer(char *name, FILE *f)
+//{
+//    end_timer();
+//    int clk_tics = sysconf(_SC_CLK_TCK);
+//    double real_time = (double)(en_time - st_time) / clk_tics;
+//    double user_time = (double)(en_cpu.tms_utime - st_cpu.tms_utime) / clk_tics;
+//    double system_time = (double)(en_cpu.tms_stime - st_cpu.tms_stime) / clk_tics;
+//    fprintf(f, "%30s:\t\t%15f\t%15f\t%15f\t\n",
+//            name,
+//            real_time,
+//            user_time,
+//            system_time);
+//}
 
 const char CREATE_TABLE_COMMAND[] = "create_table";
 const char WC_FILES_COMMAND[] = "wc_files";
 const char LOAD_BLOCK_COMMAND[] = "load_block";
 const char REMOVE_BLOCK_COMMAND[] = "remove_block";
+const char START_TIMER_COMMAND[] = "start_timer";
+const char STOP_TIMER_COMMAND[] = "stop_timer";
 
 struct Order {
     int beginning;
@@ -86,7 +116,9 @@ int main(int argc, char *argv[]) {
         if (strcmp(argv[i], CREATE_TABLE_COMMAND) == 0 ||
             strcmp(argv[i], WC_FILES_COMMAND) == 0 ||
             strcmp(argv[i], LOAD_BLOCK_COMMAND) == 0 ||
-            strcmp(argv[i], REMOVE_BLOCK_COMMAND) == 0
+            strcmp(argv[i], REMOVE_BLOCK_COMMAND) == 0 ||
+            strcmp(argv[i], START_TIMER_COMMAND) == 0 ||
+            strcmp(argv[i], STOP_TIMER_COMMAND) == 0
         ) {
             orders[orderNo].beginning = i;
             orders[orderNo].end = end;
@@ -109,26 +141,22 @@ int main(int argc, char *argv[]) {
             libzad1_createMemory(atoi(argv[orders[i].beginning + 1]));
         }
         else if (strcmp(argv[orders[i].beginning], WC_FILES_COMMAND) == 0) {
-            start_timer();
             libzad1_wcFiles(argv + orders[i].beginning + 1, orders[i].end - orders[i].beginning);
-
-            end_timer();
-            snprintf(timerName, sizeof(timerName), "wc %d files", orders[i].end - orders[i].beginning);
         }
         else if (strcmp(argv[orders[i].beginning], LOAD_BLOCK_COMMAND) == 0) {
-            start_timer();
             int newBlockIndex = libzad1_loadFile();
-            end_timer();
-            snprintf(timerName, sizeof(timerName), "load block");
             printf("New block on memory index %d\n", newBlockIndex);
         }
         else if (strcmp(argv[orders[i].beginning], REMOVE_BLOCK_COMMAND) == 0) {
-            start_timer();
             libzad1_removeBlock(atoi(argv[orders[i].beginning + 1]));
-            end_timer();
-            snprintf(timerName, sizeof(timerName), "remove block");
         }
-        save_timer(timerName, report_file);
+        else if (strcmp(argv[orders[i].beginning], START_TIMER_COMMAND) == 0) {
+            sprintf(timerName, "%s", argv[orders[i].end]);
+            start_timer();
+        }
+        else if (strcmp(argv[orders[i].beginning], STOP_TIMER_COMMAND) == 0) {
+            save_timer(timerName, report_file);
+        }
     }
 
 
