@@ -1,3 +1,0 @@
-clang
-%h --include ../zad1/lib_wc.h
--I../zad1

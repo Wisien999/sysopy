@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /run/media/wisien/Dane HDD/Studia informatyka AGH/semestr_4/sysopy/lab1/zad1 Select CMakeLists.txt
