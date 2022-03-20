@@ -1,0 +1,6 @@
+	                               Name		       Real [s]	       User [s]	     System [s]	
+Wersja używająca funkcji bibliotecznych:           0.010000	       0.000000	       0.000000	
+Wersja używająca funkcji systemowych:		       0.040000	       0.000000	       0.030000	
+
+
+Co ciekawe wersja programu używająca funkcji systemowych jest dużo wolniejsza od tej używającej funkcji bibliotecznych.
