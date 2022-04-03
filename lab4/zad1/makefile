@@ -20,5 +20,5 @@ run_exec: build
 	./$(OUT_NAME) handler exec
 
 clean:
-	rm -f $(OUT_NAME)
+	rm -f $(OUT_NAME) exec
 

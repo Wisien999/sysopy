@@ -10,5 +10,5 @@ run: build
 	./$(OUT_NAME)
 
 clean:
-	rm -f $(OUT_NAME)
+	rm -f $(OUT_NAME) exec
 
